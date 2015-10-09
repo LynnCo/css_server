@@ -1,3 +1,6 @@
+# builtin
+import os
+# external
 import flask
 import watchdog
 
@@ -9,27 +12,11 @@ app = flask.Flask(__name__)
 
 # FUNCTIONS
 
-def watch_css(self, watch):
-    # build css on changes
-    from watchdog.events import FileSystemEventHandler
-    class If_scss_changes (FileSystemEventHandler):
-        def on_modified (self, event): Cms.build_css()
-
-    # monitor for changes
-    from watchdog.observers import Observer
-    watch = Observer()
-    watch.schedule(If_scss_changes(), 'scss/')
-    watch.start()
-    print('Watching scss/ for changes')
-
-    # make an intial build
-    build_css()
-
 def build_css():
     import subprocess
 
     args = {
-        'source': 'scss/main.scss',
+        'source': 'assets/main.scss',
         'output': 'css/main.css',
     }
     subprocess.call('''
@@ -41,6 +28,22 @@ def build_css():
     )
     print('Built CSS')
 
+def watch_css():
+    # build css on changes
+    from watchdog.events import FileSystemEventHandler
+    class If_scss_changes (FileSystemEventHandler):
+        def on_modified (self, event): build_css()
+
+    # monitor for changes
+    from watchdog.observers import Observer
+    watch = Observer()
+    watch.schedule(If_scss_changes(), 'assets/')
+    watch.start()
+    print('Watching assets/ for changes')
+
+    # make an intial build
+    build_css()
+
 
 # ROUTES
 
@@ -50,6 +53,7 @@ def index():
 
 
 if __name__ == '__main__':
+    watch_css()
     app.run(
         port=5555,
         debug=False,
