@@ -37,8 +37,6 @@ h1 img {
 
 @media all and (max-width: 768px) {
 
-    body {font-size: 1.6em;}
-
     .container, .container-fluid {padding: 0;}
 
 }
@@ -86,10 +84,6 @@ nav .avatar {
     border-radius: 20%;
 }
 
-nav i {
-    font-size: 35px;
-}
-
 nav li {
     height: 50px;
 }
@@ -106,7 +100,6 @@ nav span {
 @media all and (max-width: 768px) {
 
     nav {
-        font-size: 1.2em;
         padding-left: 15px;
         padding-right: 15px;
     }

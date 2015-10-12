@@ -3,7 +3,7 @@
 *******************/
 
 html, body {
-    background-color: $filler_lightest;
+    background-color: $filler_light;
     font-family: $font_body;
     color: $filler_darkest;
     font-size: 16px;
@@ -14,9 +14,19 @@ a {
     color: $color_dark_accent;
 }
 
+@media all and (max-width: 768px) {
+
+    body {font-size: 1.6em;}
+
+}
+
 /***************
     nav
 ***************/
+
+nav i {
+    font-size: 35px;
+}
 
 .navbar-default {
     box-shadow: 0 0 5px 1px $color_primary_dark;
@@ -93,9 +103,9 @@ nav button, nav i, nav span {
 }
 
 @media all and (max-width: 768px) {
+
     nav {
-        color: $filler_light;
-        background-color: $color_primary;
+        font-size: 1.2em;
     }
 }
 
@@ -120,7 +130,7 @@ article {
 
     border-style: solid;
     border-color: $color_primary;
-    background-color: $filler_light;
+    background-color: $filler_lightest;
 
     h1, h2, h3, h3 a, h4, h4 a, h5 {
         text-align: center;
@@ -140,7 +150,6 @@ article {
 
 form>label>div>input {
     border: 1px solid $filler_medium;
-    background-color: $filler_lightest;
     transition: border-color 0.2s ease-in-out;
 }
 
@@ -153,11 +162,11 @@ form>label>div>input {
 ******************/
 
 footer {
+    font-size: 0.8em;
     text-align: center;
-    box-shadow: 0 0 5px 1px $color_primary_dark;
-    background-color: $color_primary_dark;
     color: white;
-    font-size: 0.9em;
+    background-color: $color_primary_dark;
+    box-shadow: 0 0 5px 1px $color_primary_dark;
     a {
         color: $color_light_accent;
     }

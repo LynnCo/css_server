@@ -15,8 +15,8 @@ $seafoam_green: rgb(202, 255, 204);
 // Literal gays
 
 $white: #fff;
-$light_gay: #e7e7e7;
-$gay_light: #EFEFEF; // ???
+$gay_lightest: #EFEFEF;
+$gay_light: #e7e7e7;
 $gay_medium: #D0D0D0;
 $gay_dark: #808080;
 $deep_gay: #777;
@@ -28,7 +28,8 @@ $filler_darkest: $black;
 $filler_dark: $gay_dark;
 $filler_medium: $gay_medium;
 $filler_light: $gay_light;
-$filler_lightest: white;
+$filler_lightest: $gay_lightest;
+$filler_white: white;
 $filler_shadow: rgba(0, 0, 0, 0.1);
 
 // Applied
