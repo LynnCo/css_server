@@ -12,12 +12,15 @@ app = flask.Flask(__name__)
 
 # FUNCTIONS
 
+assets_dir = 'static/assets/'
+output_dir = 'static/css/'
+
 def build_css():
     import subprocess
 
     args = {
-        'source': 'assets/main.scss',
-        'output': 'static/css/main.css',
+        'source': '{}main.scss'.format(assets_dir),
+        'output': '{}main.css'.format(output_dir),
     }
     subprocess.call('''
         sassc -m {source} {output} -s compressed
@@ -26,7 +29,7 @@ def build_css():
         preexec_fn=os.setsid,
         stdout=subprocess.PIPE
     )
-    print('Built CSS')
+    print('Built {}main.css'.format(output_dir))
 
 def watch_css():
     # build css on changes
@@ -37,9 +40,9 @@ def watch_css():
     # monitor for changes
     from watchdog.observers import Observer
     watch = Observer()
-    watch.schedule(If_scss_changes(), 'assets/')
+    watch.schedule(If_scss_changes(), assets_dir)
     watch.start()
-    print('Watching assets/ for changes')
+    print('Watching {} for changes'.format(assets_dir))
 
     # make an intial build
     build_css()
@@ -49,12 +52,13 @@ def watch_css():
 
 @app.route('/')
 def index():
-    return flask.send_from_directory('.', 'main.py')
+    return flask.send_from_directory('static/css', 'main.css')
 
 
 if __name__ == '__main__':
     watch_css()
     app.run(
-        port=5555,
+        host='0.0.0.0',
+        port=5000,
         debug=False,
     )

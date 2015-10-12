@@ -18,9 +18,7 @@ html, body {
 
 body {
     overflow-x: hidden;
-    margin-top: 60px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-top: 80px;
     min-width: 320px;
 }
 
@@ -35,6 +33,14 @@ h1, h2 {
 
 h1 img {
     width: 32px;
+}
+
+@media all and (max-width: 768px) {
+
+    body {font-size: 1.6em;}
+
+    .container, .container-fluid {padding: 0;}
+
 }
 
 /**********
@@ -99,8 +105,10 @@ nav span {
 
 @media all and (max-width: 768px) {
 
-    .container, .container-fluid {
-        padding: 0;
+    nav {
+        font-size: 1.2em;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
     // hide extra text on mobile navbar
@@ -110,7 +118,7 @@ nav span {
         margin-right: 0;
     }
 
-    nav .show-small>ul {
+    nav .ul {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -126,19 +134,98 @@ nav span {
     sidebars
 ***************/
 
+.sidebar-module {
+    padding: 10px 20px;
+    margin: 0 -15px 15px;
+    border-radius: 20px;
 
+    ol {
+        padding: 0 0 20px
+    }
+
+    li {
+        margin: 5px 0;
+
+        .fa {
+            margin: 0 10px 0 0;
+        }
+
+        img {
+            width: 1.4em;
+            margin: 0 10px 0 0;
+        }
+    }
+}
+
+@media all and (max-width: 768px) {
+
+    .sidebar-module {
+        border-radius: 0;
+    }
+}
 
 /***************
     main
 ***************/
 
-article {
-    border-radius: 10px;
+main.col-sm-8 {
+    min-height: 600px;
 }
 
-article.message {
-    padding: 10px;
-    margin-bottom: 30px;
+main {
+    article:first-child {
+        margin-top: 0px;
+    }
+}
+
+article {
+    $article-x-padding: 40px;
+    $article-y-padding: 10px;
+    $article-border-width: 5px;
+
+    margin: 40px 0;
+    border-width: $article-border-width;
+    padding: $article-y-padding $article-x-padding;
+    border-radius: 20px;
+    box-shadow: 10px 5px 3px 3px $filler_shadow;
+
+    h3 {
+        padding: 20px 35px;
+        margin: (-$article-y-padding - $article-border-width) (-$article-x-padding) 15px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        line-height: 1.5em;
+    }
+
+    h4 {
+        padding: 5px;
+        line-height: 1.5em;
+    }
+
+    blockquote {
+        border-left: 5px solid $color_secondary;
+    }
+
+    img {
+        padding: 20px 40px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+@media all and (max-width: 768px) {
+
+    main.col-sm-8 {
+        padding: 0;
+    }
+
+    article {
+        border-radius: 0;
+        h3 {
+            border-radius: 0;
+        }
+    }
+
 }
 
 /***************
@@ -174,4 +261,16 @@ form>label.check>div>input {
     width: auto;
     margin-left: 19px;
     margin-right: 10px;
+}
+
+/******************
+    footer
+******************/
+
+footer {
+    padding: 30px 0;
+
+    p:last-child {
+        margin-bottom: 0;
+    }
 }
