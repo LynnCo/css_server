@@ -1,0 +1,177 @@
+/***************
+    utility
+***************/
+
+@media all and (max-width: 768px) {.show-large {display: none !important;}}
+@media all and (min-width: 768px) {.show-small {display: none !important;}}
+
+/********************
+    body/inline
+********************/
+
+html, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    margin-top: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 320px;
+}
+
+h1, h2, h3, h4, h5, p {
+    padding: 5px 10px;
+    line-height: 1.5em;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+h1 img {
+    width: 32px;
+}
+
+/**********
+    nav
+**********/
+
+nav {
+    text-align: center;
+}
+
+.navbar-center {
+    position: absolute;
+    text-align: center;
+    padding-top: 8px;
+}
+
+nav .navbar-nav>li>a {
+    padding: 5px 0;
+}
+
+nav .navbar-nav>li>button {
+    padding: 5px 0;
+}
+
+.navbar-btn {
+    margin: 0;
+}
+
+.navbar-nav {
+    margin: 0;
+}
+
+.navbar-nav>li {
+    margin-right: 15px;
+}
+
+.navbar-nav>li:last-of-type {
+    margin-right: 0;
+}
+
+nav .avatar {
+    width: 35px;
+    border-radius: 20%;
+}
+
+nav i {
+    font-size: 35px;
+}
+
+nav li {
+    height: 50px;
+}
+
+nav img {
+    vertical-align: bottom;
+}
+
+nav span {
+    vertical-align: super;
+    margin-left: 2px;
+}
+
+@media all and (max-width: 768px) {
+
+    .container, .container-fluid {
+        padding: 0;
+    }
+
+    // hide extra text on mobile navbar
+    .navbar-nav>li span {display: none !important;}
+
+    .navbar-nav>li {
+        margin-right: 0;
+    }
+
+    nav .show-small>ul {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    nav .navbar-nav>li>a, nav .navbar-nav>li>button {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/***************
+    sidebars
+***************/
+
+
+
+/***************
+    main
+***************/
+
+article {
+    border-radius: 10px;
+}
+
+article.message {
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+/***************
+    forms
+***************/
+
+.form h1 {
+    padding: 0;
+    margin: 0 0 10px;
+}
+
+form>label {
+    width: 100%;
+}
+
+form div.row div {
+}
+
+form>label>div>span {
+    text-align: right;
+    padding-top: 6px;
+    display: inline-block;
+}
+
+form>label>div>input {
+    width: 100%;
+    padding: 6px 12px;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
+form>label.check>div>input {
+    width: auto;
+    margin-left: 19px;
+    margin-right: 10px;
+}

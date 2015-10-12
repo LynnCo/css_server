@@ -3,3 +3,6 @@
 *.pyc
 
 venv/
+
+main.css
+main.css.map

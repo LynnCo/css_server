@@ -17,7 +17,7 @@ def build_css():
 
     args = {
         'source': 'assets/main.scss',
-        'output': 'css/main.css',
+        'output': 'static/css/main.css',
     }
     subprocess.call('''
         sassc -m {source} {output} -s compressed
