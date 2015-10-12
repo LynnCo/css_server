@@ -3,17 +3,16 @@ import os
 # external
 import flask
 import watchdog
+from dotenv import load_dotenv
 
 
-# INITS
-
+load_dotenv('.env')
 app = flask.Flask(__name__)
 
 
-# FUNCTIONS
-
 assets_dir = 'static/assets/'
 output_dir = 'static/css/'
+
 
 def build_css():
     import subprocess
@@ -48,17 +47,10 @@ def watch_css():
     build_css()
 
 
-# ROUTES
-
-@app.route('/')
-def index():
-    return flask.send_from_directory('static/css', 'main.css')
-
-
 if __name__ == '__main__':
     watch_css()
     app.run(
         host='0.0.0.0',
-        port=5000,
+        port=os.environ.get('PORT', 5000),
         debug=False,
     )
