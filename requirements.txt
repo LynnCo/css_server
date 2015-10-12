@@ -1,0 +1,15 @@
+Flask==0.10.1
+Jinja2==2.8
+MarkupSafe==0.23
+PyYAML==3.11
+Werkzeug==0.10.4
+argh==0.26.1
+click==5.1
+gunicorn==19.3.0
+itsdangerous==0.24
+libsass==0.8.3
+ordereddict==1.1
+pathtools==0.1.2
+python-dotenv==0.1.5
+six==1.10.0
+watchdog==0.8.3
