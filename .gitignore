@@ -4,5 +4,5 @@
 
 venv/
 
-main.css
-main.css.map
+static/css/*.css
+static/css/*.css.map
