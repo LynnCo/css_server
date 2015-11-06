@@ -1,6 +1,8 @@
 # builtin
 import os
 from glob import glob
+import logging
+from logging.handlers import RotatingFileHandler
 
 # external
 import flask
@@ -13,6 +15,15 @@ load_dotenv('.env')
 app = flask.Flask(__name__)
 
 
+# do I really need this many lines for logging?
+handler = RotatingFileHandler('static/log.txt', maxBytes=10000, backupCount=1)
+app.logger.addHandler(handler)
+app.logger.setLevel(logging.INFO)
+routeLogger = logging.getLogger('werkzeug')
+routeLogger.addHandler(handler)
+routeLogger.setLevel(logging.INFO)
+
+
 assets_dir = 'static/assets/'
 output_dir = 'static/css/'
 
@@ -22,7 +33,7 @@ def build_css():
         filename = sass_path.split(assets_dir)[-1].split('.')[0]
         css_path = output_dir + filename + '.css'
 
-        print('Building {}'.format(css_path))
+        app.logger.info('Building {}'.format(css_path))
 
         args = {
             'source': '{}'.format(sass_path),
@@ -35,7 +46,7 @@ def build_css():
             preexec_fn=os.setsid,
             stdout=subprocess.PIPE
         )
-    print('Completed Build')
+    app.logger.info('Completed Build')
 
 def watch_css():
     # build css on changes
@@ -48,7 +59,7 @@ def watch_css():
     watch = Observer()
     watch.schedule(If_sass_changes(), assets_dir, recursive=True)
     watch.start()
-    print('Watching {} for changes'.format(assets_dir))
+    app.logger.info('Watching {} for changes'.format(assets_dir))
 
     # make an intial build
     build_css()
