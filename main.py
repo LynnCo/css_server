@@ -46,7 +46,7 @@ def watch_css():
     # monitor for changes
     from watchdog.observers import Observer
     watch = Observer()
-    watch.schedule(If_sass_changes(), assets_dir)
+    watch.schedule(If_sass_changes(), assets_dir, recursive=True)
     watch.start()
     print('Watching {} for changes'.format(assets_dir))
 
