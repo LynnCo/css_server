@@ -19,12 +19,12 @@ app = flask.Flask(__name__)
 stream_handler = logging.StreamHandler()
 file_handler = RotatingFileHandler('static/log.txt', maxBytes=10000)
 
-# logger for the flask dev server
+# configure logger for the flask dev server
 werkzeug_log = logging.getLogger('werkzeug')
 werkzeug_log.addHandler(stream_handler)
 werkzeug_log.addHandler(file_handler)
 
-# logger for flask
+# configure logger for flask
 app.logger.addHandler(stream_handler)
 app.logger.addHandler(file_handler)
 app.logger.setLevel(logging.INFO)
