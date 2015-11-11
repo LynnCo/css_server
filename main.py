@@ -15,13 +15,19 @@ load_dotenv('.env')
 app = flask.Flask(__name__)
 
 
-# do I really need this many lines for logging?
-handler = RotatingFileHandler('static/log.txt', maxBytes=10000, backupCount=1)
-app.logger.addHandler(handler)
+# log to STDOUT and static/log.txt
+stream_handler = logging.StreamHandler()
+file_handler = RotatingFileHandler('static/log.txt', maxBytes=10000)
+
+# logger for the flask dev server
+werkzeug_log = logging.getLogger('werkzeug')
+werkzeug_log.addHandler(stream_handler)
+werkzeug_log.addHandler(file_handler)
+
+# logger for flask
+app.logger.addHandler(stream_handler)
+app.logger.addHandler(file_handler)
 app.logger.setLevel(logging.INFO)
-routeLogger = logging.getLogger('werkzeug')
-routeLogger.addHandler(handler)
-routeLogger.setLevel(logging.INFO)
 
 
 assets_dir = 'static/assets/'
