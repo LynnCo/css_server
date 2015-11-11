@@ -30,49 +30,52 @@ app.logger.addHandler(file_handler)
 app.logger.setLevel(logging.INFO)
 
 
-assets_dir = 'static/assets/'
-output_dir = 'static/css/'
+class Builder(object):
 
+    def __init__(self, assets_dir, output_dir):
+        self.assets_dir = assets_dir
+        self.output_dir = output_dir
 
-def build_css():
-    for sass_path in glob(assets_dir+'*.*'):
-        filename = sass_path.split(assets_dir)[-1].split('.')[0]
-        css_path = output_dir + filename + '.css'
+    def compile_sass(self, *args, **kwargs):
+        for sass_file_path in glob(self.assets_dir+'*.*'):
+            filename = sass_file_path.split(self.assets_dir)[-1].split('.')[0]
+            css_path = self.output_dir + filename + '.css'
 
-        app.logger.info('Building {}'.format(css_path))
+            app.logger.info('Building \'{}\''.format(css_path))
 
-        args = {
-            'source': '{}'.format(sass_path),
-            'output': '{}'.format(css_path),
-        }
-        subprocess.call('''
-            sassc -m {source} {output} -s compressed
-            '''.format(**args),
-            shell=True,
-            preexec_fn=os.setsid,
-            stdout=subprocess.PIPE
-        )
-    app.logger.info('Completed Build')
+            sass_args = {
+                'source': '{}'.format(sass_file_path),
+                'output': '{}'.format(css_path),
+            }
+            subprocess.call('''
+                sassc -m {source} {output} -s compressed
+                '''.format(**sass_args),
+                shell=True,
+                preexec_fn=os.setsid,
+                stdout=subprocess.PIPE
+            )
+        app.logger.info('Completed Build')
 
-def watch_css():
-    # build css on changes
-    from watchdog.events import FileSystemEventHandler
-    class If_sass_changes (FileSystemEventHandler):
-        def on_modified (self, event): build_css()
+    def start(self):
+        from watchdog.observers import Observer
+        from watchdog.events import FileSystemEventHandler
 
-    # monitor for changes
-    from watchdog.observers import Observer
-    watch = Observer()
-    watch.schedule(If_sass_changes(), assets_dir, recursive=True)
-    watch.start()
-    app.logger.info('Watching {} for changes'.format(assets_dir))
+        handler = FileSystemEventHandler()
+        handler.on_modified = self.compile_sass
 
-    # make an intial build
-    build_css()
+        watch = Observer()
+        watch.schedule(handler, self.assets_dir, recursive=True)
+        watch.start()
+        app.logger.info('Watching \'{}\' for changes'.format(self.assets_dir))
+
+@app.before_first_request
+def activate_sass_watcher():
+    builder = Builder('static/assets/', 'static/css/')
+    builder.start()
+    builder.compile_sass()
 
 
 if __name__ == '__main__':
-    watch_css()
     app.run(
         host='0.0.0.0',
         port=int(os.environ.get('PORT', 5000)),
