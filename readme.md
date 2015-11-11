@@ -5,18 +5,16 @@ developement startup
     python main.py
     # runs on port 5000
 
-relavent files
+production startup / teardown
 
-    /etc/init/gunicorn.conf
-    /etc/nginx/sites-available/css_server
-    /etc/nginx/sites-enabled/(symlink)css_server
-
-long running services
-
-    # start
-    gunicorn -D --bind=0.0.0.0:8000 main:app
+    gunicorn -D --error-logfile=static/log.txt --access-logfile=static/log.txt --bind=0.0.0.0:8000 main:app
     service nginx start
 
-    # stop
     pkill gunicorn
     service nginx stop
+
+
+relavent files
+
+    # not created yet!
+    (symlink) /etc/nginx/sites-enabled/css_server.conf -> conf/nginx.conf
