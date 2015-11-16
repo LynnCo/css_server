@@ -16,5 +16,4 @@ production startup / teardown
 
 relavent files
 
-    # not created yet!
-    (symlink) /etc/nginx/sites-enabled/css_server.conf -> conf/nginx.conf
+    ln -sv /home/css_server/conf/nginx.conf /etc/nginx/sites-enabled/css_server.conf
